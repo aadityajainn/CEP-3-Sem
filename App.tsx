@@ -6,6 +6,9 @@ import { Sidebar } from './components/Sidebar';
 import { LoginScreen } from './components/LoginScreen';
 import { MarkdownRenderer } from './components/MarkdownRenderer';
 import { Dashboard } from './components/Dashboard';
+import { Descheduler } from './components/Descheduler';
+import { TaskReminder } from './components/TaskReminder';
+import { FuturePrediction } from './components/FuturePrediction';
 import { MODES } from './constants';
 import {
   Send,
@@ -309,8 +312,8 @@ function App() {
     );
   }
 
-  // Show other sections (for now, only AI chat is implemented)
-  if (currentView !== 'ai-chat') {
+  // Show Descheduler
+  if (currentView === 'descheduler') {
     return (
       <div className="min-h-screen bg-slate-50">
         <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 md:px-6">
@@ -321,7 +324,7 @@ function App() {
             >
               ← Back to Dashboard
             </button>
-            <h1 className="text-lg font-bold text-slate-800 capitalize">{currentView.replace('-', ' ')}</h1>
+            <h1 className="text-lg font-bold text-slate-800">Descheduler</h1>
           </div>
           <div className="flex items-center space-x-2">
             <span className="text-sm text-slate-600 hidden md:block">{user.name}</span>
@@ -333,12 +336,65 @@ function App() {
             </button>
           </div>
         </header>
-        <div className="flex items-center justify-center h-[calc(100vh-4rem)]">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-slate-800 mb-2 capitalize">{currentView.replace('-', ' ')}</h2>
-            <p className="text-slate-600">This feature is coming soon.</p>
+        <Descheduler userName={user.name} />
+      </div>
+    );
+  }
+
+  // Show Task Reminder
+  if (currentView === 'task-reminder') {
+    return (
+      <div className="min-h-screen bg-slate-50">
+        <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 md:px-6">
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={handleBackToDashboard}
+              className="px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-100 rounded-md transition-colors"
+            >
+              ← Back to Dashboard
+            </button>
+            <h1 className="text-lg font-bold text-slate-800">Task Reminder</h1>
           </div>
-        </div>
+          <div className="flex items-center space-x-2">
+            <span className="text-sm text-slate-600 hidden md:block">{user.name}</span>
+            <button
+              onClick={handleLogout}
+              className="px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-100 rounded-md transition-colors"
+            >
+              Logout
+            </button>
+          </div>
+        </header>
+        <TaskReminder userName={user.name} />
+      </div>
+    );
+  }
+
+  // Show Future Prediction
+  if (currentView === 'future-prediction') {
+    return (
+      <div className="min-h-screen bg-slate-50">
+        <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 md:px-6">
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={handleBackToDashboard}
+              className="px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-100 rounded-md transition-colors"
+            >
+              ← Back to Dashboard
+            </button>
+            <h1 className="text-lg font-bold text-slate-800">Future Prediction</h1>
+          </div>
+          <div className="flex items-center space-x-2">
+            <span className="text-sm text-slate-600 hidden md:block">{user.name}</span>
+            <button
+              onClick={handleLogout}
+              className="px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-100 rounded-md transition-colors"
+            >
+              Logout
+            </button>
+          </div>
+        </header>
+        <FuturePrediction userName={user.name} userRole={user.role} />
       </div>
     );
   }
